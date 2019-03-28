@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import it.polito.tdp.lab04.model.Corso;
 import it.polito.tdp.lab04.model.Model;
+import it.polito.tdp.lab04.model.Studente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,7 +32,7 @@ public class SegreteriaStudentiController {
     private Button btnCercaIscritti;
 
     @FXML
-    private TextField matricola;
+    private TextField txtMatricola;
 
     @FXML
     private Button btnAutoCompl;
@@ -56,7 +57,11 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doAutoCompl(ActionEvent event) {
-
+    	int matricola = Integer.parseInt(txtMatricola.getText());
+    	Studente s = model.getTuttoStudente(matricola);
+    	nome.setText(s.getNome());
+    	cognome.setText(s.getCognome());
+    	// inserire un controllo sulla matricola, se non c'è nel database --> mostra errore
     }
 
     @FXML
@@ -66,17 +71,29 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doCercaIscritti(ActionEvent event) {
-
+    	Corso corso = elencoCorsi.getValue();
+    	if (corso.getNome() == null) {
+			txtResult.setText("Selezionare un corso.");
+			return;
+		}
+    	List<Studente> studentiIscritti = model.getIscritti(corso);
+    	for(Studente s: studentiIscritti) {
+    		txtResult.appendText(s.toString2()+ "\n");
+    	}
+    	System.out.print(studentiIscritti.size());
+    	
     }
 
     @FXML
     void doElencoCorsi(ActionEvent event) {
-    	
     	// Ottieni tutti i corsi dal model
     	corsi = model.getCorsi();
-
+    	
     	// Aggiungi tutti i corsi alla ComboBox
-    	elencoCorsi.getItems().addAll(corsi);
+    	elencoCorsi.getItems().addAll(corsi);  
+    	Corso corso = elencoCorsi.getValue();
+    	
+    	String nomeCorso = corso.getNome();
     	
     }
 
@@ -94,7 +111,7 @@ public class SegreteriaStudentiController {
     void initialize() {
         assert elencoCorsi != null : "fx:id=\"elencoCorsi\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnCercaIscritti != null : "fx:id=\"btnCercaIscritti\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
-        assert matricola != null : "fx:id=\"matricola\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
+        assert txtMatricola != null : "fx:id=\"matricola\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnAutoCompl != null : "fx:id=\"btnAutoCompl\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert nome != null : "fx:id=\"nome\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert cognome != null : "fx:id=\"cognome\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
