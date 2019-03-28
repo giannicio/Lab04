@@ -51,12 +51,13 @@ public class CorsoDAO {
 	 * Dato un codice insegnamento, ottengo il corso
 	 */
 	public void getCorso(Corso corso) {
-		// TODO
 	}
 
 	/*
 	 * Ottengo tutti gli studenti iscritti al Corso
 	 */
+	
+	// se mi prendo tutto nel while allora devo anche chiedere tutto al database nella query SQL
 	public List<Studente> getStudentiIscrittiAlCorso(Corso corso) {
 		List<Studente> lstudenti = new ArrayList<Studente>();
 		final String sql = "SELECT * FROM iscrizione, studente WHERE iscrizione.matricola=studente.matricola AND codins=?";

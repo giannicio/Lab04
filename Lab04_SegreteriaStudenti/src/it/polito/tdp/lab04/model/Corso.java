@@ -70,6 +70,9 @@ public class Corso {
 		return nome;
 	} 
 	
+	public String toString2() {
+		return codins +" "+ crediti +" "+ nome +" "+ pd;
+	} 
 	
 	
 }

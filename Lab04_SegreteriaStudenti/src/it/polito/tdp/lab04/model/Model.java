@@ -25,6 +25,11 @@ public class Model {
 		return studentiIscrittiDao.getStudentiIscrittiAlCorso(corso);
 	}
 	
+	StudenteDAO corsiIscrittoDao = new StudenteDAO();
+	public List<Corso> getCorsiIscrittoStudente(int matricola) {
+		return corsiIscrittoDao.getCorsiIscritto(matricola);
+	}
+ 	
 	
 
 }

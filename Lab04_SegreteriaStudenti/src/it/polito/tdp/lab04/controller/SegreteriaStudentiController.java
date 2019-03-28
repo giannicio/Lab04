@@ -1,6 +1,7 @@
 package it.polito.tdp.lab04.controller;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -67,7 +68,19 @@ public class SegreteriaStudentiController {
     @FXML
     void doCercaCorsi(ActionEvent event) {
 
+    	int matricola = Integer.parseInt(txtMatricola.getText());
+    	List<Corso> listaCorsiIscritto = model.getCorsiIscrittoStudente(matricola);
+    		if(model.getTuttoStudente(matricola) != null) {
+		    	for (Corso c: listaCorsiIscritto) {
+		    		txtResult.appendText(c.toString2() + "\n");
+		    	}
+    		}
+			else {
+				txtResult.setText("Inserire numero di matricola corretto!");
+				}
     }
+    
+    
 
     @FXML
     void doCercaIscritti(ActionEvent event) {
