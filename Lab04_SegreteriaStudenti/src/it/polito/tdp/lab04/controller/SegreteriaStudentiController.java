@@ -58,11 +58,24 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doAutoCompl(ActionEvent event) {
+    	txtResult.clear();
     	int matricola = Integer.parseInt(txtMatricola.getText());
     	Studente s = model.getTuttoStudente(matricola);
     	nome.setText(s.getNome());
     	cognome.setText(s.getCognome());
-    	// inserire un controllo sulla matricola, se non c'è nel database --> mostra errore
+    	
+    	List<Corso> listaCorsiStudente = model.getCorsiIscrittoStudente(matricola);
+    	String corsoInserito = elencoCorsi.getValue().getNome();
+    	for(Corso c: listaCorsiStudente) {
+    		if(c.getNome().equals(corsoInserito)) {
+    			txtResult.clear();
+    			txtResult.setText("Studente già iscritto al corso!\n");
+    		}
+    		else {
+    			txtResult.clear();
+    			txtResult.setText("Studente non iscritto al corso!\n");
+    		}
+    	}
     }
 
     @FXML
@@ -117,6 +130,10 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doReset(ActionEvent event) {
+    	txtResult.clear();
+    	txtMatricola.clear();
+    	nome.clear();
+    	cognome.clear();
 
     }
 
@@ -132,7 +149,7 @@ public class SegreteriaStudentiController {
         assert btnIscrivi != null : "fx:id=\"btnIscrivi\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
-    
+        txtResult.setStyle("-fx-font-family: monospace");
     }
 
 	public void setModel(Model model) {

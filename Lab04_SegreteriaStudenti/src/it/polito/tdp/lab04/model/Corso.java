@@ -71,7 +71,7 @@ public class Corso {
 	} 
 	
 	public String toString2() {
-		return codins +" "+ crediti +" "+ nome +" "+ pd;
+		return String.format("%-8s%-4s%-45s%-4s\n", codins, crediti, nome, pd);
 	} 
 	
 	
